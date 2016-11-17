@@ -2,7 +2,7 @@
 
 %%
 \s+ /* Skip white space */
-[0-9]+  return 'NUMBER';
+([0-9]+(\.[0-9]+)?)|(\.[0-9]+)  return 'NUMBER';
 '+'     return '+';
 <<EOF>> return 'EOF';
 
