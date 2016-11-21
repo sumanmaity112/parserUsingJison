@@ -1,0 +1,23 @@
+{
+  "name": "parser_generator",
+  "version": "1.0.0",
+  "description": "This will generate a parser using jison",
+  "main": "appropriateParenthesis.js",
+  "dependencies": {
+    "jison": "^0.4.17"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sumanmaity112/parserUsingJison.git"
+  },
+  "author": "Suman Maity",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sumanmaity112/parserUsingJison/issues"
+  },
+  "homepage": "https://github.com/sumanmaity112/parserUsingJison#readme"
+}
