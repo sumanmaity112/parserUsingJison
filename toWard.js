@@ -9,7 +9,7 @@ var parser = new Parser(grammar);
 var toWord = function (expressionSrcFile) {
     var expression = fs.readFileSync(expressionSrcFile, "utf8");
     var parseTree = parser.parse(expression);
-    console.log(converter(parseTree, convertToWard, "(", ")"))
+    return converter(parseTree, convertToWard, "(", ")");
 };
 
-toWord(process.argv[2]);
+console.log(toWord(process.argv[2]));

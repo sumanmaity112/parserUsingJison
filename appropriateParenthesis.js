@@ -8,9 +8,9 @@ var parser = new Parser(grammar);
 var addAppropriateParenthesis = function (expressionSrcFile) {
     var expression = fs.readFileSync(expressionSrcFile, "utf8");
     var parseTree = parser.parse(expression);
-    console.log(converter(parseTree, function (symbol) {
+    return converter(parseTree, function (symbol) {
         return symbol.toString();
-    }, "(", ")"))
+    }, "(", ")");
 };
 
-addAppropriateParenthesis(process.argv[2]);
+console.log(addAppropriateParenthesis(process.argv[2]));
