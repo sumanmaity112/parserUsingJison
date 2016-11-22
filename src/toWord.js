@@ -6,10 +6,8 @@ var converter = require("../lib/src/converter.js");
 var grammar = fs.readFileSync("./lib/src/generateParseTree.lex", "utf8");
 var parser = new Parser(grammar);
 
-var toWord = function (expressionSrcFile) {
-    var expression = fs.readFileSync(expressionSrcFile, "utf8");
+var toWord = function (expression) {
     var parseTree = parser.parse(expression);
     return converter(parseTree, convertToWard, "(", ")");
 };
-
-console.log(toWord(process.argv[2]));
+module.exports = toWord;
