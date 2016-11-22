@@ -11,6 +11,11 @@
 
 /lex
 
+%{
+    var path = require("path");
+    var generators = require(path.resolve("./lib/src/nodeGenerator.js"));
+%}
+
 %left '+' '-'
 %left '*' '/'
 %left UMINUS
@@ -23,15 +28,15 @@ convert
     ;
 e
     :   e '+' e
-        {$$ = {child1: $1, operator: '+', child2: $3};}
+        {$$ = {child1: $1, operator: new generators.operatorNode('+'), child2: $3};}
     |   e '-' e
-        {$$ = {child1: $1, operator: '-', child2: $3};}
+        {$$ = {child1: $1, operator: new generators.operatorNode('-'), child2: $3};}
     |e '*' e
-        {$$ = {child1: $1, operator: '*', child2: $3};}
+        {$$ = {child1: $1, operator: new generators.operatorNode('*'), child2: $3};}
     | e '/' e
-        {$$ = {child1: $1, operator: '/', child2: $3};}
+        {$$ = {child1: $1, operator: new generators.operatorNode('/'), child2: $3};}
     |   NUMBER
-        {$$ = Number(yytext);}
+        {$$ =  new generators.numberNode(Number(yytext));}
     | '-' e %prec UMINUS
         {$$ = -$2;}
     ;
