@@ -12,7 +12,6 @@ var main = function (expressions) {
     var finalResult = undefined;
     parseTrees.forEach(function (tree) {
         finalResult = tree.evaluate(lookupTable);
-        console.log(finalResult);
     });
     console.log(JSON.stringify(lookupTable));
     return finalResult;

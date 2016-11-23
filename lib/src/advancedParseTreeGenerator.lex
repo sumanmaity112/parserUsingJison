@@ -49,6 +49,7 @@ e
         {$$ =  new numberNode(Number(yytext));}
     |   '-' e %prec UMINUS
         {$$ = -$2;}
+    |   variable
     ;
 
 variable
