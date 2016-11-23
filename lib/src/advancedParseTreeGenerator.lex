@@ -3,8 +3,12 @@
 %%
 \s+ /* Skip white space */
 ([0-9]+(\.[0-9]+)?)|(\.[0-9]+)  return 'NUMBER';
-([A-Za-z_]+[0-9A-Za-z_-]*)  return 'VAR';
+([A-Za-z_]+[0-9A-Za-z_]*)  return 'VAR';
 '+'     return '+';
+'^'     return '^';
+'!'     return '!';
+'('     return '(';
+')'     return ')';
 '-'     return '-';
 '*'     return '*';
 '/'     return '/';
@@ -21,11 +25,14 @@
     var identifierNode = require(path.resolve("./lib/src/nodes/identifierNode.js"));
     var numberNode = require(path.resolve("./lib/src/nodes/numberNode.js"));
     var assignmentNode = require(path.resolve("./lib/src/nodes/assignmentNode.js"));
+    var ExponentNode = require(path.resolve("./lib/src/nodes/exponentNode.js"));
     var parseTrees = [];
 %}
 
 %left '+' '-'
 %left '*' '/'
+%left '!'
+%left '^'
 %left UMINUS
 %start program
 %%
@@ -41,6 +48,8 @@ e
         { $$ = new Tree(new operatorNode('+'), [$1, $3]);}
     |   e '-' e
         {$$ = new Tree(new operatorNode('-'), [$1, $3]);}
+    |   e '^' e
+        {$$ = new Tree(new ExponentNode('^'), [$1, $3]);}
     |   e '*' e
         {$$ = new Tree(new operatorNode('*'), [$1, $3]);}
     |   e '/' e
@@ -50,6 +59,8 @@ e
     |   '-' e %prec UMINUS
         {$$ = -$2;}
     |   variable
+    |   '(' e ')'
+        { $$ = $2 }
     ;
 
 variable
@@ -63,6 +74,7 @@ TERMINATOR
 statement
     :   variable ASSIGNMENT e
         {$$ = new Tree(new assignmentNode('=',[$1, $3]),[$1,$3]);}
+    |   e
     ;
 block
     :   statement  TERMINATOR
