@@ -4,6 +4,7 @@
   "description": "This will generate a parser using jison",
   "main": "appropriateParenthesis.js",
   "dependencies": {
+    "chalk": "^1.1.3",
     "jison": "^0.4.17"
   },
   "devDependencies": {
