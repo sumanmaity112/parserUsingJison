@@ -8,10 +8,12 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "istanbul": "^0.4.5",
     "mocha": "^3.1.2"
   },
   "scripts": {
-    "test": "mocha --recursive lib/test test"
+    "test": "node_modules/mocha/bin/mocha --recursive lib/test test",
+    "coverage": "istanbul cover node_modules/mocha/bin/_mocha --recursive lib/test test"
   },
   "repository": {
     "type": "git",
