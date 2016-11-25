@@ -26,6 +26,7 @@
     var numberNode = require(path.resolve("./lib/src/nodes/numberNode.js"));
     var assignmentNode = require(path.resolve("./lib/src/nodes/assignmentNode.js"));
     var ExponentNode = require(path.resolve("./lib/src/nodes/exponentNode.js"));
+    var factorialNode = require(path.resolve("./lib/src/nodes/factorialNode.js"));
     var parseTrees = [];
 %}
 
@@ -54,6 +55,8 @@ e
         {$$ = new Tree(new operatorNode('*'), [$1, $3]);}
     |   e '/' e
         {$$ = new Tree(new operatorNode('/'), [$1, $3]);}
+    |   e '!'
+        { $$ = new Tree(new factorialNode("!"), [$1]); }
     |   NUMBER
         {$$ =  new numberNode(Number(yytext));}
     |   '-' e %prec UMINUS
@@ -73,7 +76,7 @@ TERMINATOR
 
 statement
     :   variable ASSIGNMENT e
-        {$$ = new Tree(new assignmentNode('=',[$1, $3]),[$1,$3]);}
+        {$$ = new Tree(new assignmentNode('='),[$1,$3]);}
     |   e
     ;
 block
