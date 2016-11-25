@@ -1,6 +1,8 @@
 const readline = require('readline');
 var LookupTable = require("./../lib/src/lookupTable.js");
-var evaluate = require("./expressionEvaluator");
+var evaluate = require("../src/variableSubstitutor");
+if (+process.argv[2])
+    evaluate = require("../src/toJs");
 var fs = require("fs");
 var chalk = require("chalk");
 var triedToExit = false;
@@ -15,7 +17,7 @@ const repl = readline.createInterface({
 
 var evaluateExpression = function (input) {
     try {
-        console.log(chalk.yellow(evaluate(input, grammar, lookupTable)));
+        console.log(chalk.yellow(evaluate(grammar, input, lookupTable)));
     } catch (e) {
         console.error(chalk.red(e.message));
         if (e.stack)

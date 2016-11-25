@@ -5,8 +5,12 @@ var main = function (grammar, expressions, lookupTable) {
     var parseTrees = parser.parse(expressions);
     var finalResult = parseTrees.map(function (tree) {
         var jsCode = tree.toJs(lookupTable);
-        if (tree.parent.type !== "Assignment")
-            jsCode = "console.log(" + jsCode + ")";
+        if (tree.parent === undefined || tree.parent.type !== "Assignment") {
+            if (jsCode.match(/^\s*var [A-Za-z0-9_]+\s*$/)) {
+                jsCode = jsCode + ";" + "\n" + "console.log(" + jsCode.split(" ")[1] + ")";
+            } else
+                jsCode = "console.log(" + jsCode + ")";
+        }
         return jsCode + ";";
     });
 
