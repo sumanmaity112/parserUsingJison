@@ -6,11 +6,14 @@ var parser = new Parser(grammar);
 
 var main = function (expressions, lookupTable) {
     var parseTrees = parser.parse(expressions);
-    var finalResult = undefined;
-    parseTrees.forEach(function (tree) {
-        finalResult = tree.evaluate(lookupTable);
+    var finalResult = parseTrees.map(function (tree) {
+        var jsCode = tree.toJs(lookupTable);
+        if (tree.parent.type !== "Assignment")
+            jsCode = "console.log(" + jsCode + ")";
+        return jsCode + ";";
     });
-    return finalResult;
+
+    return finalResult.join("\n");
 
 };
 module.exports = main;

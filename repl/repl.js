@@ -10,8 +10,7 @@ var lookupTable = new LookupTable();
 
 const repl = readline.createInterface({
     input: process.stdin,
-    output: process.stdout,
-    prompt: 'OHAI> '
+    output: process.stdout
 });
 
 var evaluateExpression = function (input) {
